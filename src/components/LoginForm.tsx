@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
     navigate("/welcome");
   };
 
-  const handleSocialLogin = async () => {
+  const handleSocialLogin: () => Promise<void> = async () => {
     await signInWithPopup(auth, provider);
     navigate("/welcome");
   };
@@ -102,7 +102,9 @@ const LoginForm: React.FC = () => {
               height={30}
               className="mr-2"
             />
-            <button onClick={handleSocialLogin}>login with Google</button>
+            <button onClick={() => {
+              void handleSocialLogin();
+            }}>login with Google</button>
           </div>
         </form>
       </div>
