@@ -18,13 +18,15 @@ export const Welcome = () => {
         navigate("/");
       }
     });
-  });
+  },[navigate]);
   return (
     <main className="flex flex-col justify-center items-center h-screen gap-3">
       <h1>Welcome</h1>
       <h2>This is Protected Page</h2>
       <button
-        onClick={handleSignOut}
+        onClick={() => {
+          handleSignOut();
+        }}
         className="bg-[#C5A1FF] shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in font-bold py-2 px-4 rounded disabled:cursor-not-allowed "
       >
         Logout
