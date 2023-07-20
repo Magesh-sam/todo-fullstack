@@ -11,7 +11,6 @@ interface FormData {
 
 const SignUpForm: React.FC = () => {
 
-const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
  const navigate = useNavigate();
 
@@ -30,7 +29,6 @@ const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, formData.email, formData.password);  
-    setIsUserLoggedIn(true);
     navigate('/welcome');
     
   };
@@ -38,41 +36,20 @@ const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const handleSignOut: () => Promise<void> = async () => {
     await signOut(auth);
-    setIsUserLoggedIn(false);
 
   }
 
-  console.log(auth?.currentUser)
 
   return (
 
     
     <main className="bg-[#C5A1FF] min-h-screen grid place-content-center" >
       <div className="max-w-md mx-auto">
-        {isUserLoggedIn&&<h1>This is only available to logged in users</h1>}
-        <button onClick={handleSignOut} className="bg-[#C5A1FF] shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in font-bold py-2 px-4 rounded">Sign out</button>
         <form
           onSubmit={(e)=>void handleSubmit(e)}
           className="bg-white shadow-neo border-2 border-black rounded px-8 pt-6 pb-8 mb-4 "
         >
-          <div className="mb-4">
-            <label
-              htmlFor="fullname"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullname"
-              name="fullname"
-              value={formData.fullname}
-              placeholder="Mageshkannan Annathurai"
-              onChange={handleChange}
-              className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
-              required
-            />
-          </div>
+
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
               Email
@@ -83,7 +60,7 @@ const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="D0H8j@example.com"
+              placeholder="sam@example.com"
               className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
