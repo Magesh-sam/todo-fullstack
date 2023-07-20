@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
-import { createUserWithEmailAndPassword , signOut} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useNavigate } from 'react-router-dom'
 interface FormData {
@@ -33,11 +33,6 @@ const SignUpForm: React.FC = () => {
     
   };
 
-
-  const handleSignOut: () => Promise<void> = async () => {
-    await signOut(auth);
-
-  }
 
 
   return (
