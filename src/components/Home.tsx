@@ -1,6 +1,17 @@
+import { useEffect } from "react";
+import { auth } from "../firebase/config";
 import { useNavigate } from "react-router-dom";
 const HomePage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/welcome");
+      } else {
+        navigate("/");
+      }
+    });
+  },[navigate]);
         
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#C5A1FF]">
