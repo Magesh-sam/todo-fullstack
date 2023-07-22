@@ -103,7 +103,7 @@ fetchTodos();
     <main className="flex flex-col items-center h-screen gap-3">
       <Navbar  />
      
-      <h1 className="text-4xl font-bold">{ auth?.currentUser?.displayName}Todo-list</h1>
+      <h1 className="text-4xl font-bold">{`${auth?.currentUser?.displayName??""} `}list</h1>
       <form className="space-x-4" onSubmit={(e)=>handleSubmit(e)}>
         <input
           type="text"

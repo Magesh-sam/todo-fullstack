@@ -22,7 +22,7 @@ const LoginForm: React.FC = () => {
         navigate("/login");
       }
     })
-  } )
+  },[navigate] )
 
   const [formData, setFormData] = useState<FormData>({
     email: "",
@@ -49,10 +49,10 @@ const LoginForm: React.FC = () => {
 
   return (
     <main className="bg-[#C5A1FF] min-h-screen grid place-content-center">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto min-w-sm bg-white shadow-neo border-2 border-black rounded px-8 pt-6 pb-8 mb-4 ">
         <form
           onSubmit={(e) => void handleSubmit(e)}
-          className="bg-white shadow-neo border-2 border-black rounded px-8 pt-6 pb-8 mb-4 "
+          className=""
         >
           <div className="mb-4">
             <label
@@ -68,7 +68,7 @@ const LoginForm: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="sam@example.com"
-              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input min-w-[235px] outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
           </div>
@@ -86,7 +86,7 @@ const LoginForm: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="**********"
-              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input min-w-[235px] outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
           </div>
@@ -96,14 +96,17 @@ const LoginForm: React.FC = () => {
           >
             Sign In
           </button>
-          <button
+          
+        </form>
+        <br />
+        <div className="space-y-4">
+        <button
             onClick={() => navigate("/signup")}
             className="bg-[#C5A1FF] shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in font-bold py-2 px-4 rounded disabled:cursor-not-allowed "
           >
-            Sign Up
+            New user ? Sign up
           </button>
-          <br />
-          <br />
+          
           <div className="flex bg-[#C5A1FF] shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in font-bold py-2 px-4 rounded ">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
@@ -116,7 +119,11 @@ const LoginForm: React.FC = () => {
               void handleSocialLogin();
             }}>login with Google</button>
           </div>
-        </form>
+         
+          <button onClick={() => navigate("/forgetpassword")} >forget password?</button>
+            
+          
+        </div>
       </div>
     </main>
   );

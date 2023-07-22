@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, ChangeEvent,useEffect } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useNavigate } from 'react-router-dom'
 interface FormData {
@@ -22,7 +22,7 @@ const SignUpForm: React.FC = () => {
         navigate("/signup");
       }
     })
-  } )
+  },[navigate] )
 
   const [formData, setFormData] = useState<FormData>({
     fullname: "",
@@ -38,7 +38,13 @@ const SignUpForm: React.FC = () => {
 
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, formData.email, formData.password);  
+    await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+    await updateProfile(auth?.currentUser, {
+      displayName: formData.fullname
+    })
+    await sendEmailVerification(auth?.currentUser);
+    
+
     navigate('/todo');
     
   };
@@ -56,6 +62,21 @@ const SignUpForm: React.FC = () => {
         >
 
           <div className="mb-4">
+            <label htmlFor="fullname" className="block text-gray-700 font-bold mb-2">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="fullname"
+              name="fullname"
+              value={formData.fullname}
+              onChange={handleChange}
+              placeholder="captain jacksparrow"
+              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
+              required
+            />
+          </div>
+          <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
               Email
             </label>
@@ -65,7 +86,7 @@ const SignUpForm: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="sam@example.com"
+              placeholder="jacksparrow@captain.com"
               className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
@@ -83,7 +104,7 @@ const SignUpForm: React.FC = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="**********"
+              placeholder="black_pearl#123"
               className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
@@ -100,7 +121,7 @@ const SignUpForm: React.FC = () => {
               id="reenterPassword"
               name="reenterPassword"
               value={formData.reenterPassword}
-              placeholder="**********"
+              placeholder="black_pearl#123"
               onChange={handleChange}
               className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
