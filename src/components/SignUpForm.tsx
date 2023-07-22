@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from "react";
+import React, { useState, FormEvent, ChangeEvent,useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { useNavigate } from 'react-router-dom'
@@ -12,7 +12,17 @@ interface FormData {
 const SignUpForm: React.FC = () => {
 
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/todo");
+      } else {
+        navigate("/signup");
+      }
+    })
+  } )
 
   const [formData, setFormData] = useState<FormData>({
     fullname: "",

@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from "react";
+import React, { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -13,6 +13,16 @@ interface FormData {
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/todo");
+      } else {
+        navigate("/login");
+      }
+    })
+  } )
 
   const [formData, setFormData] = useState<FormData>({
     email: "",
