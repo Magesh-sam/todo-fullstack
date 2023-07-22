@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import LoginForm from "./components/LoginForm"
 import SignUpForm from "./components/SignUpForm"
-import { Welcome } from "./components/Welcome"
 import HomePage from "./components/Home"
+import Todo from "./components/Todo"
+
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
           <Route path="/" element={<HomePage/>} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/welcome" element={<Welcome/>} />
+          <Route path="/todo" element={<Todo/>} />
           <Route path="*" element={<HomePage/>} />
                   </Routes>
     </Router>

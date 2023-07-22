@@ -29,7 +29,7 @@ const SignUpForm: React.FC = () => {
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, formData.email, formData.password);  
-    navigate('/welcome');
+    navigate('/todo');
     
   };
 
@@ -56,7 +56,7 @@ const SignUpForm: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="sam@example.com"
-              className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
           </div>
@@ -74,7 +74,7 @@ const SignUpForm: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="**********"
-              className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
           </div>
@@ -92,7 +92,7 @@ const SignUpForm: React.FC = () => {
               value={formData.reenterPassword}
               placeholder="**********"
               onChange={handleChange}
-              className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
             <br />

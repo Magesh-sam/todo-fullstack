@@ -6,7 +6,7 @@ const HomePage = () => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        navigate("/welcome");
+        navigate("/todo");
       } else {
         navigate("/");
       }

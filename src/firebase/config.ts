@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { getFirestore } from 'firebase/firestore'
 
 const APIKEY = import.meta.env.VITE_APIKEY;
 const AUTHDOMAIN = import.meta.env.VITE_AUTHDOMAIN;
@@ -23,3 +24,4 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider
+export const db = getFirestore(app);

@@ -29,12 +29,12 @@ const LoginForm: React.FC = () => {
   ) => {
     e.preventDefault();
     await signInWithEmailAndPassword(auth, formData.email, formData.password);
-    navigate("/welcome");
+    navigate("/todo");
   };
 
   const handleSocialLogin: () => Promise<void> = async () => {
     await signInWithPopup(auth, provider);
-    navigate("/welcome");
+    navigate("/todo");
   };
 
   return (
@@ -58,7 +58,7 @@ const LoginForm: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="sam@example.com"
-              className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
           </div>
@@ -76,7 +76,7 @@ const LoginForm: React.FC = () => {
               value={formData.password}
               onChange={handleChange}
               placeholder="**********"
-              className="form-input border-2 border-black focus:outline-dashed outline-2 focus:border-none"
+              className="form-input outline border-black focus:outline-dashed outline-2 focus:border-none"
               required
             />
           </div>
