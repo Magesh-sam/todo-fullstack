@@ -8,11 +8,8 @@ import {
   query,
   where,
   getDocs,
-  updateDoc
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";import Navbar from "./Navbar";
 
 type Todo = {
   taskName: string;
@@ -78,17 +75,12 @@ fetchTodos();
     }
   };
 
-  const handleSignOut = async () => {
-    await signOut(auth);
-    navigate("/");
-  };
-
 
   
 
   return (
     <main className="flex flex-col items-center h-screen gap-3">
-      <Navbar handleSignout={handleSignOut} />
+      <Navbar  />
      
       <h1 className="text-4xl font-bold">{ auth?.currentUser?.displayName}Todo-list</h1>
       <form className="space-x-4" onSubmit={(e)=>handleSubmit(e)}>
@@ -113,7 +105,7 @@ fetchTodos();
           <li  key={todo.id} className="flex gap-5" >
             <div className="bg-[#C5A1FF] shadow-neo border-2 border-black flex max-w-md min-w-[250px] p-2 justify-between" >
               <p className="text-black font-bold">{todo.taskName}</p>
-              <input type="checkbox" name="todostatus" id="todostatus" checked={todo.isCompleted} onChange={()=>handleTodoStatus(todo.id, todo.isCompleted)} className="accent-[#C5A1FF] outline w-5 h-5" />
+              {/* <input type="checkbox" name="todostatus" id="todostatus" checked={todo.isCompleted} onChange={()=>handleTodoStatus(todo.id, todo.isCompleted)} className="accent-[#C5A1FF] outline w-5 h-5" /> */}
             </div>
             <button className="p-2 bg-[#FF7A5C] font-bold shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in">Delete</button>
           </li>
