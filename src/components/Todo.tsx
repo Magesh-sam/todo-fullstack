@@ -8,8 +8,12 @@ import {
   query,
   where,
   getDocs,
+  updateDoc,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 type Todo = {
   taskName: string;
@@ -36,20 +40,22 @@ const Todo = () => {
 
   
   const todoRef = collection(db, "todos");
+
+  const fetchTodos = async () => {
+    const data = await getDocs(query(todoRef, where("uid", "==", auth?.currentUser?.uid)));
+    const todos = data.docs.map((doc) => (
+      {
+        taskName: doc.data().taskName as string,
+        isCompleted: doc.data().isCompleted as boolean,
+        id: doc.id,
+        uid: doc.data().uid as string
+      }
+    ))
+    setTodoList(todos)
+  }
   
   useEffect(() => {
-    const fetchTodos = async () => {
-      const data = await getDocs(query(todoRef, where("uid", "==", auth?.currentUser?.uid)));
-      const todos = data.docs.map((doc) => (
-        {
-          taskName: doc.data().taskName as string,
-          isCompleted: doc.data().isCompleted as boolean,
-          id: doc.id,
-          uid: doc.data().uid as string
-        }
-      ))
-      setTodoList(todos)
-    }
+    
     
     
 fetchTodos();
@@ -69,12 +75,27 @@ fetchTodos();
       });
 
       setTaskName("");
+      fetchTodos();
       
     } catch (error) {
       console.error("Error adding todo:", error);
     }
   };
 
+
+ const handleTodoStatus = async (id: string, isCompleted: boolean) => {
+   const updateRef = doc(db, "todos", id);
+    await updateDoc(updateRef, {
+     isCompleted : !isCompleted
+   })
+   fetchTodos();
+  }
+  
+  const handleDelete = async (id: string) => {
+    const deleteRef = doc(db, "todos", id);
+    await deleteDoc(deleteRef);
+    fetchTodos();
+  }
 
   
 
@@ -105,9 +126,9 @@ fetchTodos();
           <li  key={todo.id} className="flex gap-5" >
             <div className="bg-[#C5A1FF] shadow-neo border-2 border-black flex max-w-md min-w-[250px] p-2 justify-between" >
               <p className="text-black font-bold">{todo.taskName}</p>
-              {/* <input type="checkbox" name="todostatus" id="todostatus" checked={todo.isCompleted} onChange={()=>handleTodoStatus(todo.id, todo.isCompleted)} className="accent-[#C5A1FF] outline w-5 h-5" /> */}
+              <input type="checkbox" name="todostatus" id="todostatus" checked={todo.isCompleted} onChange={()=>handleTodoStatus(todo.id, todo.isCompleted)} className="accent-[#C5A1FF] outline w-5 h-5" />
             </div>
-            <button className="p-2 bg-[#FF7A5C] font-bold shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in">Delete</button>
+            <button onClick={()=>handleDelete(todo.id)} className="p-2 bg-[#FF7A5C] font-bold shadow-neo border-2 border-black text-black hover:shadow-none transition-shadow duration-200 ease-in">Delete</button>
           </li>
         ))}
       </ul>
