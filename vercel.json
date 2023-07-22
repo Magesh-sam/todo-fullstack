@@ -1,19 +1,5 @@
 {
-    "routes":[
-        {
-            "src":"/",
-            "dest":"/"
-
-        },
-        {
-            "src":"/login",
-            "dest":"/login"
-        },{
-            "src":"/signup",
-            "dest":"/signup"
-        },{
-            "src":"/todo",
-            "dest":"/todo"
-        }
-    ]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
