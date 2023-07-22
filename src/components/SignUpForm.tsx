@@ -36,6 +36,7 @@ const SignUpForm: React.FC = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  //TODO: fix the typescript type issue
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     await createUserWithEmailAndPassword(auth, formData.email, formData.password);
