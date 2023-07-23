@@ -39,11 +39,14 @@ const SignUpForm: React.FC = () => {
   //TODO: fix the typescript type issue
   const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-    await updateProfile(auth?.currentUser, {
+     const newUser = await  createUserWithEmailAndPassword(auth, formData.email, formData.password);
+    await updateProfile(newUser.user , {
       displayName: formData.fullname
     })
-    await sendEmailVerification(auth?.currentUser);
+    
+    
+   
+    await sendEmailVerification(newUser.user);
     
 
     navigate('/todo');

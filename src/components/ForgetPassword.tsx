@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from 'react'
 import { auth } from '../firebase/config'
 import { sendPasswordResetEmail } from 'firebase/auth'
